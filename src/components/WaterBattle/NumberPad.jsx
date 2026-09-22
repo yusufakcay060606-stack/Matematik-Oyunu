@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { playPop } from '../../utils/soundEffects';
 
 /**
  * NumberPad Bileşeni
- * Akıllı tahta için büyük butonlu, dokunmatik uyumlu sayı tuş takımı ve cevap inputu
+ * Akıllı tahta ve mobil uyumlu sayı tuş takımı ve cevap inputu.
+ * Mobilde sanal klavyenin açılmasını engeller.
  */
 export default function NumberPad({
   value,
@@ -14,15 +15,21 @@ export default function NumberPad({
   inputRef,
   allowNegative = false
 }) {
+  const [isTouchDevice] = useState(() => {
+    return (
+      typeof window !== 'undefined' &&
+      ('ontouchstart' in window ||
+        (navigator && navigator.maxTouchPoints > 0) ||
+        (window.matchMedia && window.matchMedia('(pointer: coarse)').matches))
+    );
+  });
+
   const handleDigitClick = (digit) => {
     if (disabled) return;
     playPop();
     // Max 5 basamak yeterlidir (-1234 gibi)
     if (value.length < 5) {
       onChange(value + digit);
-    }
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
     }
   };
 
@@ -34,27 +41,18 @@ export default function NumberPad({
     } else {
       onChange('-' + value);
     }
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
-    }
   };
 
   const handleBackspace = () => {
     if (disabled) return;
     playPop();
     onChange(value.slice(0, -1));
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
-    }
   };
 
   const handleClear = () => {
     if (disabled) return;
     playPop();
     onChange('');
-    if (inputRef && inputRef.current) {
-      inputRef.current.focus();
-    }
   };
 
   const handleKeyDown = (e) => {
@@ -74,7 +72,14 @@ export default function NumberPad({
         <input
           ref={inputRef}
           type="text"
-          inputMode={allowNegative ? 'text' : 'numeric'}
+          inputMode="none"
+          virtualkeyboardpolicy="manual"
+          readOnly={isTouchDevice}
+          onFocus={(e) => {
+            if (isTouchDevice) {
+              e.target.blur();
+            }
+          }}
           className="answer-input"
           value={value}
           onChange={(e) => {
