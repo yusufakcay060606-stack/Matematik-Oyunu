@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { playPop } from '../../utils/soundEffects';
 
 /**
@@ -73,7 +73,7 @@ export default function NumberPad({
           ref={inputRef}
           type="text"
           inputMode="none"
-          virtualkeyboardpolicy="manual"
+          virtualKeyboardPolicy="manual"
           readOnly={isTouchDevice}
           onFocus={(e) => {
             if (isTouchDevice) {

@@ -56,28 +56,6 @@ function getAudioContext() {
   return audioCtx;
 }
 
-export function toggleSound() {
-  soundEnabled = !soundEnabled;
-  if (!soundEnabled) {
-    stopGameMusic();
-    stopVictory();
-  } else {
-    startGameMusic();
-  }
-  return soundEnabled;
-}
-
-export function isSoundEnabled() {
-  return soundEnabled;
-}
-
-export function setSoundEnabled(val) {
-  soundEnabled = !!val;
-  if (!soundEnabled) {
-    stopGameMusic();
-    stopVictory();
-  }
-}
 
 let isGameMusicActive = false;
 let isMusicMuted = false;
@@ -129,7 +107,7 @@ export function stopGameMusic() {
     try {
       gameBgAudio.pause();
       gameBgAudio.currentTime = 0;
-    } catch (e) {
+    } catch {
       // ignore
     }
   }
@@ -398,19 +376,19 @@ export function playVictory() {
     try {
       robloxAudio.pause();
       robloxAudio.currentTime = 0;
-    } catch (e) {}
+    } catch {}
   }
   if (correctAudio) {
     try {
       correctAudio.pause();
       correctAudio.currentTime = 0;
-    } catch (e) {}
+    } catch {}
   }
   if (wrongAudio) {
     try {
       wrongAudio.pause();
       wrongAudio.currentTime = 0;
-    } catch (e) {}
+    } catch {}
   }
 
   // Yalnızca winAudio çalsın (ikinci bir ses olmadan tek başına)
@@ -433,7 +411,7 @@ export function stopVictory() {
     try {
       winAudio.pause();
       winAudio.currentTime = 0;
-    } catch (e) {
+    } catch {
       // ignore
     }
   }

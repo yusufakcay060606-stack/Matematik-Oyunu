@@ -4,7 +4,10 @@ import WaterStream from './WaterStream';
 import GameResult from '../GameResult';
 import {
   generateQuestion,
+  generateEasyQuestion,
+  generateAddSubQuestion,
   generateExponentQuestion,
+  generateEasyExponentQuestion,
   generateEquationQuestion,
   generatePatternQuestion,
 } from '../../utils/mathGenerator';
@@ -23,7 +26,7 @@ import {
 const MAX_HEALTH = 10;
 
 /**
- * Su Tabancası Savaşı Ana Oyun Sahnesi (4 İşlem, Örüntüler, Üslü Sayılar veya Eşitlik ve Denklem)
+ * Su Tabancası Savaşı Ana Oyun Sahnesi (Toplama/Çıkarma, 4 İşlem Kolay, 4 İşlem Orta, Örüntüler, Üslü Sayılar Kolay/Orta veya Eşitlik ve Denklem)
  */
 export default function WaterBattleGame({ onGoHome, gameType = 'operations' }) {
   const [musicActive, setMusicActive] = useState(() => isMusicPlaying());
@@ -34,15 +37,24 @@ export default function WaterBattleGame({ onGoHome, gameType = 'operations' }) {
     setMusicActive(nextState);
   };
   const isExponentMode = gameType === 'exponents';
+  const isExponentEasyMode = gameType === 'exponents-easy';
   const isEquationMode = gameType === 'equations';
   const isPatternMode = gameType === 'patterns';
-  const getQuestion = isPatternMode
-    ? generatePatternQuestion
-    : isEquationMode
-      ? generateEquationQuestion
-      : isExponentMode
-        ? generateExponentQuestion
-        : generateQuestion;
+  const isEasyMode = gameType === 'operations-easy';
+  const isAddSubMode = gameType === 'add-sub';
+
+  const getQuestion = useCallback(
+    (excludeText = '') => {
+      if (isPatternMode) return generatePatternQuestion(excludeText);
+      if (isEquationMode) return generateEquationQuestion(excludeText);
+      if (isExponentEasyMode) return generateEasyExponentQuestion(excludeText);
+      if (isExponentMode) return generateExponentQuestion(excludeText);
+      if (isEasyMode) return generateEasyQuestion(excludeText);
+      if (isAddSubMode) return generateAddSubQuestion(excludeText);
+      return generateQuestion(excludeText);
+    },
+    [isPatternMode, isEquationMode, isExponentEasyMode, isExponentMode, isEasyMode, isAddSubMode]
+  );
 
   // Karakter DOM Referansları (Piksel hassasiyetinde kafa vuruşu için)
   const team1CharRef = useRef(null);
@@ -140,7 +152,7 @@ export default function WaterBattleGame({ onGoHome, gameType = 'operations' }) {
     setT2Projectile(null);
     setWinnerTeam(null);
     startGameMusic();
-  }, []);
+  }, [getQuestion]);
 
   // Takım 1 Cevap Gönderdiğinde
   const handleSubmitTeam1 = useCallback(() => {
@@ -209,28 +221,23 @@ export default function WaterBattleGame({ onGoHome, gameType = 'operations' }) {
           const isT2AlsoFatal = t1HealthRef.current === 1 && t2SubmitTimeRef.current > 0;
           const isSimultaneous = isT2AlsoFatal && timeDiff <= SIMULTANEOUS_THRESHOLD_MS;
 
+          winnerDeterminedRef.current = true;
+          isGameOverRef.current = true;
+          stopGameMusic();
+          setT1Locked(true);
+          setT2Locked(true);
+          setT2CharState('defeated');
+
           if (isSimultaneous) {
             // Tam aynı anda öldürdüler -> BERABERE!
-            winnerDeterminedRef.current = true;
-            isGameOverRef.current = true;
-            stopGameMusic();
-            setT1Locked(true);
-            setT2Locked(true);
             t1HealthRef.current = 0;
             setT1Health(0);
             setT1CharState('defeated');
-            setT2CharState('defeated');
             addTimer(() => {
               setWinnerTeam('draw');
             }, 3000);
           } else {
             // Takım 1 İLK ÖLDÜREN oldu ve kazandı!
-            winnerDeterminedRef.current = true;
-            isGameOverRef.current = true;
-            stopGameMusic();
-            setT1Locked(true);
-            setT2Locked(true);
-            setT2CharState('defeated');
             addTimer(() => {
               setWinnerTeam(1);
             }, 3000);
@@ -261,7 +268,7 @@ export default function WaterBattleGame({ onGoHome, gameType = 'operations' }) {
         setT1Locked(false);
       }, 700);
     }
-  }, [t1Locked, winnerTeam, t1Input, t1Question, t2Question, addTimer, isPatternMode]);
+  }, [t1Locked, winnerTeam, t1Input, t1Question, t2Question, addTimer, isPatternMode, getQuestion]);
 
   // Takım 2 Cevap Gönderdiğinde
   const handleSubmitTeam2 = useCallback(() => {
@@ -330,28 +337,23 @@ export default function WaterBattleGame({ onGoHome, gameType = 'operations' }) {
           const isT1AlsoFatal = t2HealthRef.current === 1 && t1SubmitTimeRef.current > 0;
           const isSimultaneous = isT1AlsoFatal && timeDiff <= SIMULTANEOUS_THRESHOLD_MS;
 
+          winnerDeterminedRef.current = true;
+          isGameOverRef.current = true;
+          stopGameMusic();
+          setT1Locked(true);
+          setT2Locked(true);
+          setT1CharState('defeated');
+
           if (isSimultaneous) {
             // Tam aynı anda öldürdüler -> BERABERE!
-            winnerDeterminedRef.current = true;
-            isGameOverRef.current = true;
-            stopGameMusic();
-            setT1Locked(true);
-            setT2Locked(true);
             t2HealthRef.current = 0;
             setT2Health(0);
-            setT1CharState('defeated');
             setT2CharState('defeated');
             addTimer(() => {
               setWinnerTeam('draw');
             }, 3000);
           } else {
             // Takım 2 İLK ÖLDÜREN oldu ve kazandı!
-            winnerDeterminedRef.current = true;
-            isGameOverRef.current = true;
-            stopGameMusic();
-            setT1Locked(true);
-            setT2Locked(true);
-            setT1CharState('defeated');
             addTimer(() => {
               setWinnerTeam(2);
             }, 3000);
@@ -382,7 +384,7 @@ export default function WaterBattleGame({ onGoHome, gameType = 'operations' }) {
         setT2Locked(false);
       }, 700);
     }
-  }, [t2Locked, winnerTeam, t2Input, t2Question, t1Question, addTimer, isPatternMode]);
+  }, [t2Locked, winnerTeam, t2Input, t2Question, t1Question, addTimer, isPatternMode, getQuestion]);
 
   return (
     <div className="water-battle-arena">

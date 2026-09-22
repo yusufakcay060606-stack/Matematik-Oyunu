@@ -10,7 +10,6 @@ const CharacterTelAli = forwardRef(function CharacterTelAli(
   ref
 ) {
   const isTeam1 = team === 1;
-  const teamColor = isTeam1 ? '#0284c7' : '#e11d48';
   const tankWaterColor = isTeam1 ? '#38bdf8' : '#fb7185';
   const shirtColor = isTeam1 ? '#0284c7' : '#e11d48';
 
@@ -59,7 +58,7 @@ const CharacterTelAli = forwardRef(function CharacterTelAli(
             <stop offset="0%" stopColor={isTeam1 ? '#0369a1' : '#be123c'} />
             <stop offset="100%" stopColor={isTeam1 ? '#38bdf8' : '#fb7185'} />
           </linearGradient>
-          <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+          <filter id={`shadow-${team}`} x="-10%" y="-10%" width="130%" height="130%">
             <feDropShadow dx="0" dy="3" stdDeviation="2.5" floodOpacity="0.2" />
           </filter>
         </defs>
@@ -79,7 +78,7 @@ const CharacterTelAli = forwardRef(function CharacterTelAli(
         <rect x="74" y="149" width="48" height="6" rx="2" fill="#eab308" />
 
         {/* --- GÖVDE & TİŞÖRT --- */}
-        <rect x="70" y="98" width="56" height="56" rx="14" fill={shirtColor} filter="url(#shadow)" />
+        <rect x="70" y="98" width="56" height="56" rx="14" fill={shirtColor} filter={`url(#shadow-${team})`} />
         <path d="M70 114 L126 114" stroke="#ffffff" strokeWidth="5" strokeLinecap="round" />
         <path d="M70 132 L126 132" stroke="#ffffff" strokeWidth="5" strokeLinecap="round" />
 
@@ -99,7 +98,7 @@ const CharacterTelAli = forwardRef(function CharacterTelAli(
         <rect x="91" y="85" width="16" height="18" rx="4" fill="#fed7aa" />
 
         {/* Baş / Yüz */}
-        <ellipse cx="99" cy="68" rx="29" ry="26" fill="#fed7aa" filter="url(#shadow)" />
+        <ellipse cx="99" cy="68" rx="29" ry="26" fill="#fed7aa" filter={`url(#shadow-${team})`} />
 
         {/* Kulaklar */}
         <ellipse cx="69" cy="70" rx="6.5" ry="8" fill="#fdba74" />
@@ -109,7 +108,7 @@ const CharacterTelAli = forwardRef(function CharacterTelAli(
         <path
           d="M68 56 Q99 64 130 56 L131 63 Q99 71 67 63 Z"
           fill="#dc2626"
-          filter="url(#shadow)"
+          filter={`url(#shadow-${team})`}
         />
         {/* Bandana Düğümü / Çizgisi */}
         <circle cx="68" cy="60" r="4" fill="#b91c1c" />
@@ -178,7 +177,7 @@ const CharacterTelAli = forwardRef(function CharacterTelAli(
           <path d="M76 108 L60 125 L74 138" stroke="#fed7aa" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" fill="none" />
 
           {/* Tabanca */}
-          <g className="gun-model" filter="url(#shadow)">
+          <g className="gun-model" filter={`url(#shadow-${team})`}>
             {/* Su Tankı */}
             <rect x="85" y="112" width="48" height="20" rx="9" fill={`url(#waterTankGrad-${team})`} stroke="#38bdf8" strokeWidth="2" />
             <ellipse cx="96" cy="120" rx="2.5" ry="2.5" fill="#ffffff" opacity="0.8" />

@@ -5,8 +5,6 @@ import React from 'react';
  * Akıllı tahtada en arkadan bile rahatlıkla okunabilen yüksek kontrastlı soru kartı
  */
 export default function MathQuestion({ question, feedback, team }) {
-  const isTeam1 = team === 1;
-
   return (
     <div className={`question-card team-${team} ${feedback ? `has-${feedback.type}` : ''}`}>
 
@@ -16,7 +14,7 @@ export default function MathQuestion({ question, feedback, team }) {
           <div className="pattern-formula-wrapper">
             <div className="pattern-sequence-items">
               {question.sequence?.map((item, idx) => (
-                <span key={idx} className="pattern-shape-badge" title={item.name}>
+                <span key={`${item.id}-${idx}`} className="pattern-shape-badge" title={item.name}>
                   <span className={item.id === 'triangle' ? 'scaled-triangle' : ''}>
                     {item.symbol}
                   </span>

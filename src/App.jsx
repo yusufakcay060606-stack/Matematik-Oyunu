@@ -1,65 +1,35 @@
 import React, { useState } from 'react';
 import Home from './components/Home';
 import WaterBattleGame from './components/WaterBattle/WaterBattleGame';
-import { toggleSound, isSoundEnabled } from './utils/soundEffects';
 import './styles/home.css';
 import './styles/waterBattle.css';
+
+const GAME_TYPE_MAP = {
+  'add-sub-battle': 'add-sub',
+  'water-battle-easy': 'operations-easy',
+  'water-battle': 'operations',
+  'pattern-battle': 'patterns',
+  'exponent-battle-easy': 'exponents-easy',
+  'exponent-battle': 'exponents',
+  'equation-battle': 'equations',
+};
 
 /**
  * Matematik Oyunları Ana Uygulama
  */
 export default function App() {
-  const [currentMode, setCurrentMode] = useState('home'); // 'home' | 'water-battle' | 'exponent-battle'
-  const [soundActive, setSoundActive] = useState(() => isSoundEnabled());
+  const [currentMode, setCurrentMode] = useState('home');
 
-  const handleToggleSound = () => {
-    const newState = toggleSound();
-    setSoundActive(newState);
-  };
+  const handleGoHome = () => setCurrentMode('home');
 
   return (
     <div className="app-root">
-      {currentMode === 'home' && (
-        <Home
-          onSelectMode={(mode) => setCurrentMode(mode)}
-          soundEnabled={soundActive}
-          onToggleSound={handleToggleSound}
-        />
-      )}
-
-      {currentMode === 'water-battle' && (
+      {currentMode === 'home' ? (
+        <Home onSelectMode={setCurrentMode} />
+      ) : (
         <WaterBattleGame
-          gameType="operations"
-          onGoHome={() => setCurrentMode('home')}
-          soundEnabled={soundActive}
-          onToggleSound={handleToggleSound}
-        />
-      )}
-
-      {currentMode === 'pattern-battle' && (
-        <WaterBattleGame
-          gameType="patterns"
-          onGoHome={() => setCurrentMode('home')}
-          soundEnabled={soundActive}
-          onToggleSound={handleToggleSound}
-        />
-      )}
-
-      {currentMode === 'exponent-battle' && (
-        <WaterBattleGame
-          gameType="exponents"
-          onGoHome={() => setCurrentMode('home')}
-          soundEnabled={soundActive}
-          onToggleSound={handleToggleSound}
-        />
-      )}
-
-      {currentMode === 'equation-battle' && (
-        <WaterBattleGame
-          gameType="equations"
-          onGoHome={() => setCurrentMode('home')}
-          soundEnabled={soundActive}
-          onToggleSound={handleToggleSound}
+          gameType={GAME_TYPE_MAP[currentMode] || 'operations'}
+          onGoHome={handleGoHome}
         />
       )}
     </div>

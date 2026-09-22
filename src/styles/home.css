@@ -13,6 +13,7 @@
   background-size: 24px 24px;
   padding: 1.5rem 2rem;
   color: #0f172a;
+  position: relative;
 }
 
 /* Üst Araç Çubuğu */
@@ -48,7 +49,22 @@
 
 .top-actions {
   display: flex;
+  align-items: center;
   gap: 0.65rem;
+}
+
+.developer-credit-text {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.2px;
+  user-select: none;
+  pointer-events: none;
+  z-index: 50;
+  white-space: nowrap;
 }
 
 .action-icon-btn {
@@ -75,26 +91,6 @@
 
 .action-icon-btn:active {
   transform: translateY(0);
-}
-
-.sound-btn.active {
-  border-color: #7dd3fc;
-  color: #0369a1;
-  background: #f0f9ff;
-}
-
-.sound-btn.active:hover {
-  background: #e0f2fe;
-}
-
-.sound-btn.muted {
-  border-color: #fca5a5;
-  color: #dc2626;
-  background: #fef2f2;
-}
-
-.sound-btn.muted:hover {
-  background: #fee2e2;
 }
 
 /* Ana İçerik */
@@ -147,7 +143,37 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+/* İlkokul & Ortaokul Seviye Rozeti - Butonun tam sağ üst köşesine merkezlenmiş */
+.school-level-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 0.32rem 0.85rem;
+  border-radius: 9999px;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 2px solid #ffffff;
+  white-space: nowrap;
+}
+
+.school-level-badge.level-primary {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.school-level-badge.level-middle {
+  background: #7c3aed;
+  color: #ffffff;
 }
 
 .mode-btn-content {
@@ -245,70 +271,207 @@
   transition: transform 0.2s ease;
 }
 
-.active-mode-btn:hover .arrow-symbol {
-  transform: translateX(3px);
+/* 1. Oyun Modu: Toplama Ve Çıkarma (İlkokul) */
+.add-sub-mode-card {
+  border-color: #0284c7;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
 }
 
-/* 2. Oyun Modu: Örüntüler Su Tabancası Savaşı */
+.add-sub-mode-card:hover {
+  background: #f0f9ff;
+  border-color: #0369a1;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.22);
+}
+
+.add-sub-mode-card .add-sub-icon {
+  background: #e0f2fe;
+  border-color: #bae6fd;
+}
+
+.add-sub-mode-card:hover .add-sub-icon {
+  background: #bae6fd;
+}
+
+.add-sub-mode-card .mode-title-text {
+  color: #0284c7;
+}
+
+.add-sub-mode-card .mode-play-arrow {
+  background: #0284c7;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+}
+
+.add-sub-mode-card:hover .mode-play-arrow {
+  background: #0369a1;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+/* 2. Oyun Modu: 4 İşlem Kolay Seviye (İlkokul) */
+.easy-mode-card {
+  border-color: #0284c7;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
+}
+
+.easy-mode-card:hover {
+  background: #f0f9ff;
+  border-color: #0369a1;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.22);
+}
+
+.easy-mode-card .easy-icon {
+  background: #e0f2fe;
+  border-color: #bae6fd;
+}
+
+.easy-mode-card:hover .easy-icon {
+  background: #bae6fd;
+}
+
+.easy-mode-card .mode-title-text {
+  color: #0284c7;
+}
+
+.easy-mode-card .mode-play-arrow {
+  background: #0284c7;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+}
+
+.easy-mode-card:hover .mode-play-arrow {
+  background: #0369a1;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+/* 3. Oyun Modu: 4 İşlem Orta Seviye (İlkokul) */
+.medium-mode-card {
+  border-color: #0284c7;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
+}
+
+.medium-mode-card:hover {
+  background: #f0f9ff;
+  border-color: #0369a1;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.22);
+}
+
+.medium-mode-card .medium-icon {
+  background: #e0f2fe;
+  border-color: #bae6fd;
+}
+
+.medium-mode-card:hover .medium-icon {
+  background: #bae6fd;
+}
+
+.medium-mode-card .mode-title-text {
+  color: #0284c7;
+}
+
+.medium-mode-card .mode-play-arrow {
+  background: #0284c7;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+}
+
+.medium-mode-card:hover .mode-play-arrow {
+  background: #0369a1;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+/* 4. Oyun Modu: Örüntüler (İlkokul) */
 .pattern-mode-card {
-  border-color: #f59e0b;
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
+  border-color: #0284c7;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
 }
 
 .pattern-mode-card:hover {
-  background: #fffdf5;
-  border-color: #d97706;
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.22);
+  background: #f0f9ff;
+  border-color: #0369a1;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.22);
 }
 
 .pattern-mode-card .pattern-icon {
-  background: #fef3c7;
-  border-color: #fde68a;
-  color: #d97706;
+  background: #e0f2fe;
+  border-color: #bae6fd;
+  color: #0284c7;
 }
 
 .pattern-mode-card:hover .pattern-icon {
-  background: #fde68a;
+  background: #bae6fd;
 }
 
 .pattern-mode-card .mode-title-text {
-  color: #b45309;
+  color: #0284c7;
 }
 
 .pattern-mode-card .mode-play-arrow {
-  background: #f59e0b;
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
+  background: #0284c7;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
 }
 
 .pattern-mode-card:hover .mode-play-arrow {
-  background: #d97706;
-  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.35);
+  background: #0369a1;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
 }
 
-/* 3. Oyun Modu: Üslü Sayılar Su Tabancası Savaşı */
+/* 5. Oyun Modu: Üslü Sayılar Kolay Seviye (Ortaokul) */
+.exponent-easy-mode-card {
+  border-color: #7c3aed;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.12);
+}
+
+.exponent-easy-mode-card:hover {
+  background: #faf5ff;
+  border-color: #6d28d9;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.22);
+}
+
+.exponent-easy-mode-card .exponent-easy-icon {
+  background: #f3e8ff;
+  border-color: #e9d5ff;
+  color: #7c3aed;
+}
+
+.exponent-easy-mode-card:hover .exponent-easy-icon {
+  background: #e9d5ff;
+}
+
+.exponent-easy-mode-card .mode-title-text {
+  color: #7c3aed;
+}
+
+.exponent-easy-mode-card .mode-play-arrow {
+  background: #7c3aed;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.25);
+}
+
+.exponent-easy-mode-card:hover .mode-play-arrow {
+  background: #6d28d9;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.35);
+}
+
+/* 6. Oyun Modu: Üslü Sayılar Orta Seviye (Ortaokul) */
 .exponent-mode-card {
   border-color: #7c3aed;
   box-shadow: 0 4px 14px rgba(124, 58, 237, 0.12);
 }
 
 .exponent-mode-card:hover {
-  background: #fdfcff;
+  background: #faf5ff;
   border-color: #6d28d9;
   box-shadow: 0 8px 24px rgba(124, 58, 237, 0.22);
 }
 
 .exponent-mode-card .exponent-icon {
-  background: #ede9fe;
-  border-color: #ddd6fe;
+  background: #f3e8ff;
+  border-color: #e9d5ff;
   color: #7c3aed;
 }
 
 .exponent-mode-card:hover .exponent-icon {
-  background: #ddd6fe;
+  background: #e9d5ff;
 }
 
 .exponent-mode-card .mode-title-text {
-  color: #6d28d9;
+  color: #7c3aed;
 }
 
 .exponent-mode-card .mode-play-arrow {
@@ -321,63 +484,60 @@
   box-shadow: 0 4px 10px rgba(124, 58, 237, 0.35);
 }
 
-/* 3. Oyun Modu: Eşitlik Ve Denklem Su Tabancası Savaşı */
+/* 7. Oyun Modu: Eşitlik Ve Denklem (Ortaokul) */
 .equation-mode-card {
-  border-color: #059669;
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.12);
+  border-color: #7c3aed;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.12);
 }
 
 .equation-mode-card:hover {
-  background: #f0fdf4;
-  border-color: #047857;
-  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.22);
+  background: #faf5ff;
+  border-color: #6d28d9;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.22);
 }
 
 .equation-mode-card .equation-icon {
-  background: #d1fae5;
-  border-color: #a7f3d0;
-  color: #059669;
+  background: #f3e8ff;
+  border-color: #e9d5ff;
+  color: #7c3aed;
 }
 
 .equation-mode-card:hover .equation-icon {
-  background: #a7f3d0;
+  background: #e9d5ff;
 }
 
 .equation-mode-card .mode-title-text {
-  color: #047857;
+  color: #7c3aed;
 }
 
 .equation-mode-card .mode-play-arrow {
-  background: #059669;
-  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
+  background: #7c3aed;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.25);
 }
 
 .equation-mode-card:hover .mode-play-arrow {
-  background: #047857;
-  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.35);
-}
-
-/* Gelecek Modlar Butonu */
-.coming-soon-btn {
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
-  cursor: not-allowed;
-  opacity: 0.65;
-}
-
-.mode-btn-icon-wrapper.locked {
-  background: #f1f5f9;
-  border-color: #e2e8f0;
-}
-
-.mode-title-text.dimmed {
-  color: #64748b;
-  font-size: 1.4rem;
-  font-weight: 600;
+  background: #6d28d9;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.35);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .developer-credit-text {
+    position: static;
+    text-align: center;
+    margin-bottom: 0.8rem;
+    font-size: 0.82rem;
+  }
+  .home-top-bar {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+    margin-bottom: 1.8rem;
+  }
+  .top-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .home-title {
     font-size: 2.3rem;
   }
@@ -386,6 +546,13 @@
   }
   .mode-card-btn {
     padding: 1rem 1.2rem;
+  }
+  .school-level-badge {
+    top: 0;
+    right: 8px;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    padding: 0.22rem 0.6rem;
   }
   .mode-btn-icon-wrapper {
     width: 52px;

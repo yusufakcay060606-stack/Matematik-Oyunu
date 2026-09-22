@@ -91,6 +91,127 @@ export function generateQuestion(excludeText = '') {
 }
 
 /**
+ * Kolay Seviye 4 İşlem Matematik Soru Üreteci
+ * Küçük rakamlar ve zihinden anında çözülebilir kolay işlemler.
+ * - Toplama: 1..9 + 1..9 (toplam 2..18)
+ * - Çıkarma: 3..15 - 1..9 (küçük pozitif sonuç)
+ * - Çarpma: 1..5 × 1..5 (kolay çarpım tablosu)
+ * - Bölme: bölen 2..5, bölüm 1..5 (kalansız, tam sayı)
+ */
+export function generateEasyQuestion(excludeText = '') {
+  let attempts = 0;
+  while (attempts < 20) {
+    attempts++;
+    const op = OPERATORS[Math.floor(Math.random() * OPERATORS.length)];
+    let num1, num2, answer;
+
+    switch (op) {
+      case '+': {
+        num1 = randomInt(1, 9);
+        num2 = randomInt(1, 9);
+        answer = num1 + num2;
+        break;
+      }
+      case '-': {
+        num1 = randomInt(4, 15);
+        num2 = randomInt(1, Math.min(num1 - 1, 9));
+        answer = num1 - num2;
+        break;
+      }
+      case '×': {
+        num1 = randomInt(1, 5);
+        num2 = randomInt(1, 5);
+        answer = num1 * num2;
+        break;
+      }
+      case '÷': {
+        const divisor = randomInt(2, 5);
+        answer = randomInt(1, 5);
+        num1 = divisor * answer;
+        num2 = divisor;
+        break;
+      }
+      default:
+        num1 = 3;
+        num2 = 2;
+        answer = 5;
+    }
+
+    const text = `${num1} ${op} ${num2}`;
+
+    if (text !== excludeText) {
+      return {
+        id: Math.random().toString(36).substring(2, 9),
+        num1,
+        operator: op,
+        num2,
+        answer,
+        text
+      };
+    }
+  }
+
+  // Güvenli fallback
+  return {
+    id: Math.random().toString(36).substring(2, 9),
+    num1: 3,
+    operator: '+',
+    num2: 4,
+    answer: 7,
+    text: '3 + 4'
+  };
+}
+
+/**
+ * Toplama Ve Çıkarma Su Tabancası Savaşı Soru Üreteci
+ * - Sadece Toplama (+) ve Çıkarma (-) işlemleri (Çarpma ve bölme kesinlikle yoktur)
+ * - Toplama: 1..9 + 1..9 (toplam 2..18)
+ * - Çıkarma: 4..15 - 1..9 (küçük pozitif sonuç)
+ */
+export function generateAddSubQuestion(excludeText = '') {
+  let attempts = 0;
+  const ADD_SUB_OPS = ['+', '-'];
+  while (attempts < 20) {
+    attempts++;
+    const op = ADD_SUB_OPS[Math.floor(Math.random() * ADD_SUB_OPS.length)];
+    let num1, num2, answer;
+
+    if (op === '+') {
+      num1 = randomInt(1, 9);
+      num2 = randomInt(1, 9);
+      answer = num1 + num2;
+    } else {
+      num1 = randomInt(4, 15);
+      num2 = randomInt(1, Math.min(num1 - 1, 9));
+      answer = num1 - num2;
+    }
+
+    const text = `${num1} ${op} ${num2}`;
+
+    if (text !== excludeText) {
+      return {
+        id: Math.random().toString(36).substring(2, 9),
+        num1,
+        operator: op,
+        num2,
+        answer,
+        text
+      };
+    }
+  }
+
+  // Güvenli fallback
+  return {
+    id: Math.random().toString(36).substring(2, 9),
+    num1: 4,
+    operator: '+',
+    num2: 5,
+    answer: 9,
+    text: '4 + 5'
+  };
+}
+
+/**
  * Üslü Sayılar Soru Üreteci (Ortaokul Seviyesi)
  * - Taban: -9 ile 9 arası rastgele tam sayı (0-9 gelme ihtimali %75)
  * - Üs: 0, 1, 2, 3 gibi basit sayılar
@@ -147,6 +268,99 @@ export function generateExponentQuestion(excludeText = '') {
     baseDisplay: '3',
     answer: 9,
     text: '3^2'
+  };
+}
+
+/**
+ * Kolay Seviye Üslü Sayılar Soru Üreteci
+ * - Sadece pozitif tabanlar (0-10 arası, kesinlikle negatif sayı yok!)
+ * - Küçük ve basit üsler (0, 1, 2, 3)
+ * - Cevaplar büyük sayılar olmaz (maksimum 100)
+ */
+export function generateEasyExponentQuestion(excludeText = '') {
+  let attempts = 0;
+  while (attempts < 25) {
+    attempts++;
+
+    let base, exponent;
+    const type = randomInt(1, 6);
+
+    switch (type) {
+      case 1: {
+        // 0. Kuvvet kuralı: a^0 = 1 (1^0, 2^0, 3^0, 5^0, 7^0, 9^0)
+        base = randomInt(1, 9);
+        exponent = 0;
+        break;
+      }
+      case 2: {
+        // 1. Kuvvet kuralı: a^1 = a (1^1 .. 10^1)
+        base = randomInt(1, 10);
+        exponent = 1;
+        break;
+      }
+      case 3: {
+        // Küçük Kareler (2^2 .. 9^2 veya 10^2) -> 4, 9, 16, 25, 36, 49, 64, 81, 100
+        base = randomInt(2, 10);
+        exponent = 2;
+        break;
+      }
+      case 4: {
+        // Küçük Küpler (1^3 .. 4^3) -> 1, 8, 27, 64
+        base = randomInt(1, 4);
+        exponent = 3;
+        break;
+      }
+      case 5: {
+        // 2'nin küçük kuvvetleri: 2^2, 2^3, 2^4, 2^5 -> 4, 8, 16, 32
+        base = 2;
+        exponent = randomInt(2, 5);
+        break;
+      }
+      case 6: {
+        // 10'un veya 3'ün küçük kuvvetleri: 10^2 = 100 veya 3^3 = 27
+        if (Math.random() < 0.5) {
+          base = 10;
+          exponent = 2;
+        } else {
+          base = 3;
+          exponent = randomInt(2, 3);
+        }
+        break;
+      }
+      default:
+        base = 2;
+        exponent = 3;
+    }
+
+    const answer = Math.pow(base, exponent);
+    // Güvenlik: kesinlikle negatif yok ve en fazla 100
+    if (answer < 0 || answer > 100) continue;
+
+    const baseDisplay = `${base}`;
+    const text = `${baseDisplay}^${exponent}`;
+
+    if (text !== excludeText) {
+      return {
+        id: Math.random().toString(36).substring(2, 9),
+        isExponent: true,
+        base,
+        exponent,
+        baseDisplay,
+        answer,
+        text
+      };
+    }
+  }
+
+  // Güvenli Fallback
+  return {
+    id: Math.random().toString(36).substring(2, 9),
+    isExponent: true,
+    base: 2,
+    exponent: 3,
+    baseDisplay: '2',
+    answer: 8,
+    text: '2^3'
   };
 }
 
