@@ -66,7 +66,7 @@ export default function Home({ onSelectMode }) {
             <span className="school-level-badge level-primary">İlkokul</span>
             <div className="mode-btn-content">
               <div className="mode-btn-icon-wrapper add-sub-icon">
-                <img src="/img/4operations.png" alt="Toplama Ve Çıkarma" className="mode-btn-img" />
+                <img src="/img/add_sub.png" alt="Toplama Ve Çıkarma" className="mode-btn-img" />
               </div>
 
               <div className="mode-btn-text-block">
