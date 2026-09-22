@@ -1,0 +1,1223 @@
+/* ===================================================
+   SU TABANCASI SAVAŞI STILLERI (waterBattle.css)
+   - Tam ekranda kafaya tam isabet eden dinamik su mermisi
+   - Karakter üstünde daha uzun, sayısız can barı (azalınca kırmızı)
+   - Büyütülmüş Tel Ali karakteri ve 3 saniyelik dramatik ölme animasyonu
+   - Roketsiz CEVAPLA butonu ve başlıksız soru kartı
+   =================================================== */
+
+.water-battle-arena {
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f1f5f9;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sol Üstte Tekil Yüzen "Ana Menü" Butonu */
+.floating-back-menu-btn {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 50;
+  background: #ffffff;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-back-menu-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.floating-back-menu-btn:active {
+  transform: translateY(0);
+}
+
+/* Sağ Üstte Tekil Yüzen "Müzik" Butonu (Yazısız, İkon Buton) */
+.floating-music-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-music-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.floating-music-btn:active {
+  transform: translateY(0);
+}
+
+.floating-music-btn.music-muted {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.floating-music-btn.music-muted:hover {
+  background: #fee2e2;
+  border-color: #f87171;
+}
+
+.music-icon-wrapper {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-note-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  display: inline-block;
+  user-select: none;
+}
+
+.music-slash-svg {
+  position: absolute;
+  inset: -2px;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* ===================================================
+   İKİ TAKIMLI BÖLÜNMÜŞ ARENA (TAM EKRAN 100VH)
+   =================================================== */
+
+.arena-split-container {
+  flex: 1;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-side-section {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.65rem 1.4rem 0.8rem 1.4rem;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Takım 1 Teması (Sol - Mavi) */
+.team-1-zone {
+  background: #f8fafc;
+  border-right: 1px solid #cbd5e1;
+}
+
+/* Takım 2 Teması (Sağ - Kırmızı) */
+.team-2-zone {
+  background: #fafafa;
+  border-left: 1px solid #cbd5e1;
+}
+
+/* Orta Ayırıcı Çizgi & VS */
+.arena-center-divider {
+  width: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.divider-line {
+  flex: 1;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #cbd5e1 0,
+    #cbd5e1 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+.vs-badge {
+  width: 46px;
+  height: 46px;
+  background: #1e293b;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 0.3rem 0;
+  position: relative;
+  z-index: 12;
+  transition: transform 0.25s ease;
+}
+
+.vs-badge:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.vs-text {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #f59e0b;
+  line-height: 1;
+}
+
+.water-emojis {
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+/* ===================================================
+   TAKIM BAŞLIĞI
+   =================================================== */
+
+.team-status-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+
+.team-title-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.team-1-zone .team-name {
+  color: #0284c7;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.team-2-zone .team-name {
+  color: #e11d48;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.team-icon {
+  font-size: 1.25rem;
+}
+
+/* ===================================================
+   KARAKTER VE CAN BARI (DAHA BÜYÜK & DAHA UZUN BAR)
+   =================================================== */
+
+.character-stage-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 130px;
+  max-height: 190px;
+  margin: 0.15rem 0;
+}
+
+.character-with-health {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+}
+
+/* Karakterin Tam Üstündeki Uzatılmış Can Barı (Sayısız) */
+.character-health-bar-wrapper {
+  width: 215px; /* Daha uzun ve dengeli görsel can barı */
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.char-health-track {
+  width: 100%;
+  height: 100%;
+  background: #e2e8f0;
+  border-radius: 999px;
+  border: 1.5px solid #cbd5e1;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.char-health-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+/* Tel Ali Karakteri - Daha Büyük ve Belirgin */
+.character-wrapper {
+  position: relative;
+  height: 100%;
+  max-height: 170px;
+  aspect-ratio: 210 / 240;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.character-wrapper:hover {
+  transform: translateY(-2px);
+}
+
+.tel-ali-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 170px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.12));
+}
+
+/* Karakter Durum Animasyonları */
+.character-wrapper.state-idle {
+  animation: idleBob 3s ease-in-out infinite;
+}
+
+@keyframes idleBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.character-wrapper.state-shooting {
+  animation: shootRecoil 0.45s ease-out;
+}
+
+@keyframes shootRecoil {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px) scale(1.03); }
+  100% { transform: translateX(0); }
+}
+
+.character-wrapper.team-2.state-shooting {
+  animation: shootRecoilTeam2 0.45s ease-out;
+}
+
+@keyframes shootRecoilTeam2 {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(10px) scale(1.03); }
+  100% { transform: translateX(0); }
+}
+
+.character-wrapper.state-hit {
+  animation: hitShake 0.5s ease-in-out;
+}
+
+@keyframes hitShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-12px) rotate(-4deg); }
+  40% { transform: translateX(12px) rotate(4deg); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(4px); }
+}
+
+/* 3 Saniyelik Dramatik ve Eğlenceli Karakter Ölme Animasyonu */
+.character-wrapper.state-defeated,
+.character-wrapper.state-dying {
+  animation: dramaticDeath 2.5s forwards cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes dramaticDeath {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  15% {
+    transform: translateY(-15px) rotate(-12deg) scale(1.05);
+  }
+  35% {
+    transform: translateY(10px) rotate(18deg);
+  }
+  55% {
+    transform: translateY(-8px) rotate(-8deg);
+  }
+  75% {
+    transform: translateY(18px) rotate(28deg) scale(0.92);
+  }
+  100% {
+    transform: translateY(26px) rotate(35deg) scale(0.85);
+    opacity: 0.65;
+  }
+}
+
+.water-splash-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.splash-drop {
+  position: absolute;
+  font-size: 1.8rem;
+  animation: flyDrop 0.6s ease-out forwards;
+}
+
+.d1 { top: -5px; left: 10%; }
+.d2 { top: 20%; right: -5px; }
+.d3 { bottom: 15%; left: 10%; }
+.d4 { bottom: 5%; right: 10%; }
+
+@keyframes flyDrop {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(1.4) translateY(-20px); opacity: 0; }
+}
+
+/* Ölüm Anında Dönen Yıldızlar */
+.defeat-stars {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  font-size: 1.6rem;
+  animation: starOrbit 1.2s infinite ease-in-out;
+}
+
+@keyframes starOrbit {
+  0%, 100% { transform: translateX(-50%) rotate(0deg) scale(1); }
+  50% { transform: translateX(-50%) rotate(180deg) scale(1.2); }
+}
+
+/* ===================================================
+   MATEMATİK SORU KARTI (MathQuestion.jsx) - BAŞLIKSIZ
+   =================================================== */
+
+.team-question-area {
+  flex-shrink: 0;
+  margin-bottom: 0.4rem;
+}
+
+.question-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.question-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+  transform: translateY(-1px);
+}
+
+.team-1-zone .question-card {
+  border-color: #bae6fd;
+}
+
+.team-2-zone .question-card {
+  border-color: #fecdd3;
+}
+
+.question-card.has-correct {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+.question-card.has-wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.question-formula-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+  padding: 0.15rem 0;
+}
+
+.operator-symbol {
+  color: #0284c7;
+  font-size: 2.4rem;
+}
+
+.team-2-zone .operator-symbol {
+  color: #e11d48;
+}
+
+.exponent-number {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #0284c7;
+  position: relative;
+  top: -0.75em;
+  margin-left: 2px;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+.team-2-zone .exponent-number {
+  color: #e11d48;
+}
+
+/* Eşitlik ve Denklem Soruları Gösterimi */
+.equation-formula-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  white-space: nowrap;
+}
+
+.equation-formula-text {
+  font-size: 2.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.5px;
+}
+
+.equation-prompt-badge {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #0284c7;
+  background: #e0f2fe;
+  border: 1.5px solid #bae6fd;
+  padding: 0.1rem 0.55rem;
+  border-radius: 8px;
+  line-height: 1.2;
+}
+
+.team-2-zone .equation-prompt-badge {
+  color: #e11d48;
+  background: #ffe4e6;
+  border-color: #fecdd3;
+}
+
+/* Örüntü Soruları Gösterimi */
+.pattern-formula-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.pattern-sequence-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.pattern-shape-badge {
+  min-width: 48px;
+  height: 48px;
+  font-size: 2.1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.35rem;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.pattern-shape-badge:hover {
+  transform: scale(1.08);
+}
+
+.pattern-question-badge {
+  background: #fffbeb;
+  border: 2px dashed #f59e0b;
+  color: #d97706;
+  font-weight: 900;
+  font-size: 2.2rem;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+}
+
+/* Üçgenin diğer şekillerle aynı boyutta görünmesi için ölçeklendirme */
+.scaled-triangle {
+  display: inline-block;
+  transform: scale(1.72) translateY(-1px);
+  transform-origin: center center;
+  line-height: 1;
+}
+
+.equals-symbol {
+  color: #64748b;
+}
+
+.question-mark {
+  color: #d97706;
+  font-weight: 900;
+}
+
+.feedback-line {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.feedback-line.active.correct {
+  color: #15803d;
+}
+
+.feedback-line.active.wrong {
+  color: #b91c1c;
+}
+
+/* ===================================================
+   DOKUNMATİK TUŞ TAKIMI (NumberPad.jsx) - ROKETSİZ CEVAPLA
+   =================================================== */
+
+.team-control-area {
+  flex-shrink: 0;
+}
+
+.numpad-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.answer-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.answer-input {
+  width: 100%;
+  height: 44px;
+  font-size: 1.7rem;
+  font-weight: 800;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  color: #0f172a;
+  letter-spacing: 1.5px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.team-1-zone .answer-input:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.team-2-zone .answer-input:focus {
+  border-color: #e11d48;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15);
+}
+
+.input-clear-mini {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  background: #f1f5f9;
+  color: #64748b;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cbd5e1;
+  transition: all 0.15s ease;
+}
+
+.input-clear-mini:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* 6 Sütunlu Sayı Izgarası (2 Satır x 6 Buton) */
+.numpad-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.35rem;
+}
+
+.numpad-digit-btn,
+.numpad-action-btn {
+  height: 42px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.numpad-digit-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.numpad-digit-btn:active {
+  transform: translateY(1px) scale(0.96);
+}
+
+.team-1-zone .numpad-digit-btn:hover {
+  border-color: #7dd3fc;
+  color: #0284c7;
+}
+
+.team-2-zone .numpad-digit-btn:hover {
+  border-color: #fda4af;
+  color: #e11d48;
+}
+
+.team-1-zone .numpad-digit-btn:active {
+  background: #e0f2fe;
+}
+
+.team-2-zone .numpad-digit-btn:active {
+  background: #ffe4e6;
+}
+
+.minus-btn {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: #cbd5e1;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.minus-btn:hover {
+  background: #e2e8f0;
+  border-color: #64748b;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(100, 116, 139, 0.15);
+}
+
+.backspace-btn {
+  background: #fffbeb;
+  color: #92400e;
+  border-color: #fde68a;
+  font-size: 1.25rem;
+}
+
+.backspace-btn:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(245, 158, 11, 0.15);
+}
+
+.clear-all-btn {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+  font-size: 1.15rem;
+}
+
+.clear-all-btn:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(239, 68, 68, 0.15);
+}
+
+/* CEVAPLA Butonu (Roketsiz, Net) */
+.submit-answer-btn {
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.team-1-zone .submit-answer-btn {
+  background: #0284c7;
+}
+
+.team-1-zone .submit-answer-btn:hover:not(:disabled) {
+  background: #0369a1;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(2, 132, 199, 0.3);
+}
+
+.team-1-zone .submit-answer-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.team-2-zone .submit-answer-btn {
+  background: #e11d48;
+}
+
+.team-2-zone .submit-answer-btn:hover:not(:disabled) {
+  background: #be123c;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(225, 29, 72, 0.3);
+}
+
+.team-2-zone .submit-answer-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* ===================================================
+   PATTERNPAD (Örüntü Şekil Butonları & Giriş Alanı)
+   =================================================== */
+
+.patternpad-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.pattern-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pattern-input-display {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.team-1-zone .pattern-input-display {
+  border-color: #bae6fd;
+}
+
+.team-2-zone .pattern-input-display {
+  border-color: #fecdd3;
+}
+
+.selected-shape-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: popInChip 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popInChip {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.selected-shape-symbol {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.selected-shape-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.pattern-input-placeholder {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+/* 4 Şekil Butonu (2x2 Izgara) */
+.pattern-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+}
+
+.pattern-shape-btn {
+  height: 56px;
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+}
+
+.pattern-shape-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-color: #94a3b8;
+}
+
+.pattern-shape-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.pattern-shape-btn.selected {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.25);
+  transform: scale(1.02);
+}
+
+.team-2-zone .pattern-shape-btn.selected {
+  border-color: #e11d48;
+  background: #fff1f2;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.25);
+}
+
+.shape-btn-icon {
+  font-size: 2.35rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pattern-submit-btn {
+  height: 46px;
+}
+
+.submit-answer-btn:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none;
+}
+
+/* ===================================================
+   BÜYÜK SU DAMLASI MERMİSİ (TAM EKRAN VE KAFAYA HASSAS HİZALAMA)
+   =================================================== */
+
+.water-stream-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+}
+
+.flying-water-orb-container {
+  position: absolute;
+  inset: 0;
+}
+
+.flying-water-orb {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.water-orb-svg {
+  width: 100%;
+  height: 100%;
+  animation: orbPulse 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes orbPulse {
+  0% { transform: scale(0.95); }
+  100% { transform: scale(1.08); }
+}
+
+.orb-trail-bubbles {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 2px;
+}
+
+.trail-drop {
+  font-size: 1.3rem;
+  animation: trailFloat 0.3s ease-out infinite alternate;
+}
+
+.t1 { animation-delay: 0s; }
+.t2 { animation-delay: 0.1s; }
+.t3 { animation-delay: 0.2s; }
+
+@keyframes trailFloat {
+  0% { opacity: 0.8; transform: translateY(-3px) scale(0.9); }
+  100% { opacity: 0.4; transform: translateY(3px) scale(1.1); }
+}
+
+/* Dinamik Koordinatlarla Uçuş (Piksel Hassasiyetinde Kafaya Vuruş) */
+.water-stream-overlay.has-coords .flying-water-orb {
+  animation: flyOrbExactHead 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.stream-left-to-right .orb-trail-bubbles {
+  right: 100%;
+}
+
+.stream-right-to-left .orb-trail-bubbles {
+  left: 100%;
+}
+
+@keyframes flyOrbExactHead {
+  0% {
+    left: var(--start-x);
+    top: var(--start-y);
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.9;
+  }
+  45% {
+    top: calc((var(--start-y) + var(--target-y)) / 2 - 35px);
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+  85% {
+    top: var(--target-y);
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    left: var(--target-x);
+    top: var(--target-y);
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Hedefin Tam Kafasına Çarptığında Patlayan Su Sıçraması */
+.water-impact-splash {
+  position: absolute;
+  font-size: 3.6rem;
+  opacity: 0;
+  left: var(--target-x, 50%);
+  top: var(--target-y, 30%);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: splashExplodeHead 0.45s ease-out 0.83s forwards;
+}
+
+@keyframes splashExplodeHead {
+  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.65) rotate(12deg); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.2) rotate(-10deg); opacity: 0; }
+}
+
+.splash-wave-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #38bdf8;
+  animation: ringExpandHead 0.45s ease-out 0.83s forwards;
+}
+
+@keyframes ringExpandHead {
+  0% { width: 20px; height: 20px; opacity: 1; }
+  100% { width: 110px; height: 110px; opacity: 0; }
+}
+
+/* ===================================================
+   ZAFER EKRANI MODALI (GameResult.jsx)
+   =================================================== */
+
+.game-result-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.4s ease-out;
+}
+
+@keyframes modalFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.game-result-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 2.6rem 3.2rem;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.winner-team-1 {
+  border-top: 6px solid #0284c7;
+}
+
+.winner-team-2 {
+  border-top: 6px solid #e11d48;
+}
+
+.winner-team-draw {
+  border-top: 6px solid #8b5cf6;
+}
+
+.trophy-badge-container {
+  margin-bottom: 0.8rem;
+}
+
+.trophy-emoji {
+  font-size: 4.2rem;
+  display: inline-block;
+  animation: trophyWobble 2s infinite ease-in-out;
+}
+
+@keyframes trophyWobble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.result-headline {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.winner-team-1 .result-headline {
+  color: #0284c7;
+}
+
+.winner-team-2 .result-headline {
+  color: #e11d48;
+}
+
+.winner-team-draw .result-headline {
+  color: #7c3aed;
+}
+
+.result-actions-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.result-btn {
+  flex: 1;
+  height: 52px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.play-again-btn {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.play-again-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.home-nav-btn {
+  background: #f1f5f9;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+}
+
+.home-nav-btn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+}

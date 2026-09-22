@@ -1,0 +1,399 @@
+/* ===================================================
+   ANA SAYFA STILLERI (Home.css)
+   Sade, gereksiz yazılardan arındırılmış, bol hoverli
+   ve kaliteli eğitim oyunu arayüzü
+   =================================================== */
+
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  padding: 1.5rem 2rem;
+  color: #0f172a;
+}
+
+/* Üst Araç Çubuğu */
+.home-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto 2.5rem auto;
+}
+
+.brand-badge {
+  background: #ffffff;
+  color: #0369a1;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.45rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.brand-badge:hover {
+  border-color: #7dd3fc;
+  background: #f0f9ff;
+  transform: translateY(-1px);
+}
+
+.top-actions {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.action-icon-btn {
+  background: #ffffff;
+  color: #334155;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.45rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-icon-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.action-icon-btn:active {
+  transform: translateY(0);
+}
+
+.sound-btn.active {
+  border-color: #7dd3fc;
+  color: #0369a1;
+  background: #f0f9ff;
+}
+
+.sound-btn.active:hover {
+  background: #e0f2fe;
+}
+
+.sound-btn.muted {
+  border-color: #fca5a5;
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.sound-btn.muted:hover {
+  background: #fee2e2;
+}
+
+/* Ana İçerik */
+.home-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+
+.home-title {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  transition: transform 0.3s ease;
+}
+
+.home-title:hover {
+  transform: scale(1.02);
+}
+
+/* Dikey Alt Alta Oyun Modları Listesi */
+.game-modes-vertical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.mode-card-btn {
+  width: 100%;
+  border-radius: 16px;
+  padding: 1.4rem 2rem;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-btn-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+/* 4 İşlem Su Tabancası Savaşı Butonu */
+.active-mode-btn {
+  background: #ffffff;
+  border: 2px solid #0284c7;
+  color: #0f172a;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
+  cursor: pointer;
+}
+
+.active-mode-btn:hover {
+  background: #f0f9ff;
+  border-color: #0369a1;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.2);
+}
+
+.active-mode-btn:active {
+  transform: translateY(-1px);
+}
+
+.mode-btn-icon-wrapper {
+  width: 68px;
+  height: 68px;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.mode-btn-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.active-mode-btn:hover .mode-btn-icon-wrapper {
+  transform: scale(1.08) rotate(-4deg);
+  background: #bae6fd;
+}
+
+.mode-btn-text-block {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.mode-title-text {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0369a1;
+  line-height: 1.2;
+}
+
+.mode-play-arrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 800;
+  padding: 0.8rem 1.6rem;
+  border-radius: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+  transition: all 0.2s ease;
+}
+
+.active-mode-btn:hover .mode-play-arrow {
+  background: #0369a1;
+  transform: translateX(4px);
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+.arrow-symbol {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.active-mode-btn:hover .arrow-symbol {
+  transform: translateX(3px);
+}
+
+/* 2. Oyun Modu: Örüntüler Su Tabancası Savaşı */
+.pattern-mode-card {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
+}
+
+.pattern-mode-card:hover {
+  background: #fffdf5;
+  border-color: #d97706;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.22);
+}
+
+.pattern-mode-card .pattern-icon {
+  background: #fef3c7;
+  border-color: #fde68a;
+  color: #d97706;
+}
+
+.pattern-mode-card:hover .pattern-icon {
+  background: #fde68a;
+}
+
+.pattern-mode-card .mode-title-text {
+  color: #b45309;
+}
+
+.pattern-mode-card .mode-play-arrow {
+  background: #f59e0b;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
+}
+
+.pattern-mode-card:hover .mode-play-arrow {
+  background: #d97706;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.35);
+}
+
+/* 3. Oyun Modu: Üslü Sayılar Su Tabancası Savaşı */
+.exponent-mode-card {
+  border-color: #7c3aed;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.12);
+}
+
+.exponent-mode-card:hover {
+  background: #fdfcff;
+  border-color: #6d28d9;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.22);
+}
+
+.exponent-mode-card .exponent-icon {
+  background: #ede9fe;
+  border-color: #ddd6fe;
+  color: #7c3aed;
+}
+
+.exponent-mode-card:hover .exponent-icon {
+  background: #ddd6fe;
+}
+
+.exponent-mode-card .mode-title-text {
+  color: #6d28d9;
+}
+
+.exponent-mode-card .mode-play-arrow {
+  background: #7c3aed;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.25);
+}
+
+.exponent-mode-card:hover .mode-play-arrow {
+  background: #6d28d9;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.35);
+}
+
+/* 3. Oyun Modu: Eşitlik Ve Denklem Su Tabancası Savaşı */
+.equation-mode-card {
+  border-color: #059669;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.12);
+}
+
+.equation-mode-card:hover {
+  background: #f0fdf4;
+  border-color: #047857;
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.22);
+}
+
+.equation-mode-card .equation-icon {
+  background: #d1fae5;
+  border-color: #a7f3d0;
+  color: #059669;
+}
+
+.equation-mode-card:hover .equation-icon {
+  background: #a7f3d0;
+}
+
+.equation-mode-card .mode-title-text {
+  color: #047857;
+}
+
+.equation-mode-card .mode-play-arrow {
+  background: #059669;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
+}
+
+.equation-mode-card:hover .mode-play-arrow {
+  background: #047857;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.35);
+}
+
+/* Gelecek Modlar Butonu */
+.coming-soon-btn {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.mode-btn-icon-wrapper.locked {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+}
+
+.mode-title-text.dimmed {
+  color: #64748b;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2.3rem;
+  }
+  .mode-title-text {
+    font-size: 1.4rem;
+  }
+  .mode-card-btn {
+    padding: 1rem 1.2rem;
+  }
+  .mode-btn-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    font-size: 1.8rem;
+  }
+  .mode-play-arrow {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+}

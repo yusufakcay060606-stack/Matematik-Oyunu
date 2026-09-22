@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="patGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="patGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="patGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="patGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+    <filter id="patShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#patShadow)">
+    <!-- 1. Daire (Sol Üst) -->
+    <circle cx="48" cy="46" r="26" fill="url(#patGrad1)" />
+    <circle cx="43" cy="41" r="8" fill="#ffffff" opacity="0.4" />
+
+    <!-- 2. Yıldız (Sağ Üst) -->
+    <!-- 5 köşeli altın yıldız -->
+    <polygon points="112,22 118,38 135,38 122,49 127,65 112,55 97,65 102,49 89,38 106,38" fill="url(#patGrad2)" />
+
+    <!-- 3. Kare (Sol Alt) -->
+    <rect x="24" y="90" width="48" height="48" rx="10" fill="url(#patGrad3)" />
+    <rect x="29" y="95" width="16" height="16" rx="4" fill="#ffffff" opacity="0.3" />
+
+    <!-- 4. Üçgen (Sağ Alt) -->
+    <polygon points="115,88 141,138 89,138" fill="url(#patGrad4)" />
+    <polygon points="115,98 127,126 103,126" fill="#ffffff" opacity="0.3" />
+
+    <!-- Merkezde Soru İşareti Rozeti -->
+    <circle cx="80" cy="80" r="22" fill="#ffffff" stroke="#f59e0b" stroke-width="3.5" />
+    <text x="80" y="89" font-family="'Comic Sans MS', 'Fredoka', 'Quicksand', sans-serif" font-size="28" font-weight="900" fill="#d97706" text-anchor="middle">?</text>
+  </g>
+</svg>

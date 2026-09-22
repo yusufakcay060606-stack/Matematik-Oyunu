@@ -1,0 +1,64 @@
+:root {
+  --font-display: 'Fredoka', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ui: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Team 1 (Mavi / Su Mavisi) */
+  --team1-primary: #0284c7;
+  --team1-primary-hover: #0369a1;
+  --team1-light: #e0f2fe;
+  --team1-border: #38bdf8;
+  --team1-shadow: rgba(2, 132, 199, 0.25);
+
+  /* Team 2 (Kırmızı / Mercan) */
+  --team2-primary: #e11d48;
+  --team2-primary-hover: #be123c;
+  --team2-light: #ffe4e6;
+  --team2-border: #fb7185;
+  --team2-shadow: rgba(225, 29, 72, 0.25);
+
+  /* Genel Tema Renkleri */
+  --bg-main: #f0fdf4;
+  --bg-sky: #f8fafc;
+  --text-dark: #0f172a;
+  --text-muted: #475569;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  font-family: var(--font-display);
+  background: #f1f5f9;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+input {
+  font-family: inherit;
+  outline: none;
+}
