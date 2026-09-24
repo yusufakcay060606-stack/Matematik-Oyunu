@@ -481,9 +481,14 @@ export const PATTERN_SHAPES = [
 ];
 
 /**
- * Şekil Örüntüleri Soru Üreteci
- * - 4 temel şekil üzerinden rastgele kural kalıpları (ABB, AAB, AB, ABC, AABB, ABBA, ABCD)
- * - Örnek: Kare, Yuvarlak, Yuvarlak, Kare, Yuvarlak, Yuvarlak, ? -> Cevap: Kare
+ * Şekil Örüntüleri Soru Üreteci (İlkokul Seviyesi)
+ * - Tekrar sıklığı kesinlikle 4 DEĞİLDİR (Sadece 2 ve 3 elemanlı temel kalıplar: AB, AAB, ABB, ABC).
+ * - İlkokul öğrencileri için sade, anlaşılır ve kafa karıştırmayan periyotlar.
+ * - Örnekler:
+ *   - AB: 🔵 ⭐ 🔵 ⭐ 🔵 ? -> ⭐
+ *   - AAB: ⭐ ⭐ 🔺 ⭐ ⭐ ? -> 🔺
+ *   - ABB: 🟩 🔵 🔵 🟩 🔵 ? -> 🔵
+ *   - ABC: 🔵 🟩 🔺 🔵 🟩 ? -> 🔺
  * - 4 seçenek sabit kalır (Yuvarlak, Yıldız, Kare, Üçgen).
  */
 export function generatePatternQuestion(excludeText = '') {
@@ -491,72 +496,60 @@ export function generatePatternQuestion(excludeText = '') {
   while (attempts < 30) {
     attempts++;
 
-    // 4 şekli karıştırarak A, B, C, D rollerine ata
+    // Şekilleri karıştırarak A, B, C rollerine ata
     const shuffled = [...PATTERN_SHAPES].sort(() => Math.random() - 0.5);
     const A = shuffled[0];
     const B = shuffled[1];
     const C = shuffled[2];
-    const D = shuffled[3];
 
-    // Örüntü kalıbı seç
-    const patternType = randomInt(1, 7);
+    // Sadece 1-4 arası basit kalıplar (Asla 4 elemanlı periyot yok: periyotlar sadece 2 veya 3)
+    const patternType = randomInt(1, 4);
     let fullSequence = [];
 
     switch (patternType) {
       case 1: {
-        // ABB kalıbı (Kullanıcının verdiği örnek: Kare, Yuvarlak, Yuvarlak, Kare, Yuvarlak, Yuvarlak, ?)
-        const unit = [A, B, B];
-        fullSequence = [...unit, ...unit, A]; // 7 eleman, son eleman A
+        // AB kalıbı (Periyot: 2) -> Örn: 🔵 🟩 🔵 🟩 🔵 ? (🟩) veya 🔵 🟩 🔵 🟩 🔵 🟩 ? (🔵)
+        const unit = [A, B];
         if (Math.random() < 0.5) {
-          fullSequence = [...unit, A, B, B]; // 6 eleman, son eleman B
+          fullSequence = [...unit, ...unit, A, B]; // 6 eleman (son eleman B)
+        } else {
+          fullSequence = [...unit, ...unit, ...unit, A]; // 7 eleman (son eleman A)
         }
         break;
       }
       case 2: {
-        // AAB kalıbı (Örn: Yıldız, Yıldız, Üçgen, Yıldız, Yıldız, Üçgen, ?)
+        // AAB kalıbı (Periyot: 3) -> Örn: ⭐ ⭐ 🔺 ⭐ ⭐ ? (🔺) veya ⭐ ⭐ 🔺 ⭐ ⭐ 🔺 ? (⭐)
         const unit = [A, A, B];
-        fullSequence = [...unit, ...unit, A];
         if (Math.random() < 0.5) {
-          fullSequence = [...unit, A, A, B];
+          fullSequence = [...unit, A, A, B]; // 6 eleman (son eleman B)
+        } else {
+          fullSequence = [...unit, ...unit, A]; // 7 eleman (son eleman A)
         }
         break;
       }
       case 3: {
-        // AB kalıbı (Örn: Daire, Kare, Daire, Kare, Daire, Kare, ?)
-        const unit = [A, B];
-        fullSequence = [...unit, ...unit, ...unit, A]; // 7 eleman
-        break;
-      }
-      case 4: {
-        // ABC kalıbı (Örn: Daire, Kare, Üçgen, Daire, Kare, Üçgen, ?)
-        const unit = [A, B, C];
-        fullSequence = [...unit, ...unit, A]; // 7 eleman
+        // ABB kalıbı (Periyot: 3) -> Örn: 🟩 🔵 🔵 🟩 🔵 ? (🔵) veya 🟩 🔵 🔵 🟩 🔵 🔵 ? (🟩)
+        const unit = [A, B, B];
         if (Math.random() < 0.5) {
-          fullSequence = [...unit, ...unit, A, B]; // 8 eleman
+          fullSequence = [...unit, A, B, B]; // 6 eleman (son eleman B)
+        } else {
+          fullSequence = [...unit, ...unit, A]; // 7 eleman (son eleman A)
         }
         break;
       }
-      case 5: {
-        // AABB kalıbı (Örn: Kare, Kare, Daire, Daire, Kare, Kare, ?)
-        const unit = [A, A, B, B];
-        fullSequence = [...unit, A, A, B, B];
-        break;
-      }
-      case 6: {
-        // ABBA kalıbı (Örn: Daire, Yıldız, Yıldız, Daire, Daire, Yıldız, Yıldız, ?)
-        const unit = [A, B, B, A];
-        fullSequence = [...unit, A, B, B, A];
-        break;
-      }
-      case 7: {
-        // ABCD kalıbı (Örn: Daire, Yıldız, Kare, Üçgen, Daire, Yıldız, Kare, ?)
-        const unit = [A, B, C, D];
-        fullSequence = [...unit, A, B, C, D];
+      case 4: {
+        // ABC kalıbı (Periyot: 3) -> Örn: 🔵 🟩 🔺 🔵 🟩 ? (🔺) veya 🔵 🟩 🔺 🔵 🟩 🔺 ? (🔵)
+        const unit = [A, B, C];
+        if (Math.random() < 0.5) {
+          fullSequence = [...unit, A, B, C]; // 6 eleman (son eleman C)
+        } else {
+          fullSequence = [...unit, ...unit, A]; // 7 eleman (son eleman A)
+        }
         break;
       }
       default: {
-        const unit = [A, B, B];
-        fullSequence = [...unit, ...unit, A];
+        const unit = [A, B];
+        fullSequence = [...unit, ...unit, A, B];
       }
     }
 
